@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { Server as WebSocketServer } from 'ws';
 import  errorHandler from './shared/errorHandler';
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 // import categoriesRoutes from './routes/categories';
 // import productsRoutes from './routes/products';
@@ -33,12 +35,13 @@ app.use(morgan('tiny'));
 // app.use(`${api}/categories`, categoriesRoutes);
 // app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
+// app.use('/api/users', usersRoutes);
 // app.use(`${api}/orders`, ordersRoutes);
 app.use(errorHandler);
 app.use('/public/uploads', express.static(`${__dirname}/public/uploads`));
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 7000;
 
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING TO ${PORT}!`);
