@@ -36,4 +36,4 @@ userSchema.set('toJSON', {
 });
 
 export const userModel = mongoose.model<any, any>("User", userSchema);
-// export const userModel = userSchema;
+

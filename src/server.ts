@@ -12,6 +12,7 @@ dotenv.config()
 // import categoriesRoutes from './routes/categories';
 // import productsRoutes from './routes/products';
 import usersRoutes from './controllers/users';
+import itemsRoutes, { uploadOptions } from './controllers/items'
 // import ordersRoutes from './routes/orders';
 
 const app = express();
@@ -33,9 +34,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 // app.use(`${api}/categories`, categoriesRoutes);
-// app.use(`${api}/products`, productsRoutes);
+app.use(`${api}/items`, itemsRoutes);
 app.use(`${api}/users`, usersRoutes);
-// app.use('/api/users', usersRoutes);
+
 // app.use(`${api}/orders`, ordersRoutes);
 app.use(errorHandler);
 app.use('/public/uploads', express.static(`${__dirname}/public/uploads`));

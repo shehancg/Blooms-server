@@ -77,9 +77,8 @@ router.get(`/`, async (req, res) =>{
 })
 
 //GET USER COUNT
-router.get(`/count`, async (req, res) =>{
-    const userCount = await userModel.countDocuments()
-    console.log(userCount)
+router.get(`/get/count`, async (req, res) =>{
+    const userCount = await userModel.count()
     if(!userCount){
         res.status(500).json({success:false})
     }
@@ -87,5 +86,6 @@ router.get(`/count`, async (req, res) =>{
         userCount: userCount
     });
 })
+
 
 export default router;
