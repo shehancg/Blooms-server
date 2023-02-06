@@ -13,17 +13,19 @@ dotenv.config()
 // import productsRoutes from './routes/products';
 import usersRoutes from './controllers/users';
 import itemsRoutes, { uploadOptions } from './controllers/items'
-// import ordersRoutes from './routes/orders';
+import ordersRoutes from './controllers/orders';
 
 const app = express();
 const api = process.env.API_URl;
 
 const corsOptions = {
-  origin: 'http://localhost:8000',
+  origin: 'http://localhost:4200',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 200,
 };
+
+app.use('/public/uploads', express.static(`${__dirname}/public/uploads`));
 
 app.get("/", (req, res) => {
     res.send("BADU WADA");
@@ -36,10 +38,10 @@ app.use(morgan('tiny'));
 // app.use(`${api}/categories`, categoriesRoutes);
 app.use(`${api}/items`, itemsRoutes);
 app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
 
-// app.use(`${api}/orders`, ordersRoutes);
 app.use(errorHandler);
-app.use('/public/uploads', express.static(`${__dirname}/public/uploads`));
+
 
 
 const PORT = process.env.PORT || 7000;

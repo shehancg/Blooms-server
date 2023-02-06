@@ -81,9 +81,9 @@ router.post(`/itemsadd`, uploadOptions.single('image'), async (req, res) =>{
 router.delete('/:id', (req, res)=>{
     itemModel.findByIdAndRemove(req.params.id).then((item: any) =>{
         if(item) {
-            return res.status(200).json({success: true, message: 'the product is deleted! '})
+            return res.status(200).json({success: true, message: "ITEM DELETED"})
         }else{
-            return res.status(404).json({success: false, message: "product not found!" })
+            return res.status(404).json({success: false, message: "ITEM NOT FOUND" })
         }
     }).catch((err: any)=>{
        return res.status(500).json({success: false, error: err}) 

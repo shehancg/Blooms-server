@@ -18,7 +18,9 @@ function generateToken(payload: object): string {
 // Verify a JWT and return the decoded payload
 function verify(req: any, res: any, next: any) {
     try {
-        const token = req.cookies.accessToken
+        // const token = req.cookies.accessToken
+        const authorization = req.headers.authorization as string;
+        const token = authorization.split(" ")[1];
 
         // Verify the JWT and return the decoded payload
         req.user = jwt.verify(token, secretKey)
@@ -34,6 +36,21 @@ function verify(req: any, res: any, next: any) {
         res.end()
     }
 }
+
+// function verify(req: any, res: any, next: any) {
+//     const token = req.headers.access_token as string;
+//     if(!token) return res.status(401).send();
+
+//     try {
+//         const decodedUser = verify(token, process.env.JWT_SECRET!);
+//         req.user = decodedUser;
+
+//     } catch (error) {
+//         res.status(401).send();
+//     }
+
+//     return next();
+// }
 
 export {
     generateToken,
