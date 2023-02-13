@@ -1,5 +1,5 @@
 {
-  "name": "furniture",
+  "name": "blooms",
   "version": "1.0.0",
   "description": "backend for shop",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.20",
+    "socket.io": "^4.6.0",
     "to-regex-range": "^5.0.1",
     "ws": "^8.12.0"
   },
@@ -38,7 +39,7 @@
     "@types/node": "^18.11.18",
     "@types/supertest": "^2.0.12",
     "@types/ws": "^8.5.4",
-    "jest": "^29.4.1",
+    "jest": "^29.4.2",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1"

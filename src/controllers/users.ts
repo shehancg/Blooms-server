@@ -32,7 +32,7 @@ router.post('/register', async (req,res)=>{
 router.post('/login', async(req,res) =>{
     const user = await userModel.findOne({email: req.body.email})
     const secret = process.env.secret;
- 
+
     if(!user) {
         return res.status(400).send('Incorrect Email');
     }
@@ -69,7 +69,7 @@ router.get('/:id', async(req,res)=>{
 //GET ALL USERS
 router.get(`/`, async (req, res) =>{
     const allUsers = await userModel.find().select('-passwordHash');
-    
+
     if(!allUsers){
         res.status(500).json({success:false})
     }

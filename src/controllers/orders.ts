@@ -12,6 +12,16 @@ const router = express.Router();
 //router.use(verify);
 //router.use(auth);
 
+
+router.get(`/`, async (req, res) =>{
+    const allorders = await OrderModel.find()
+    
+    if(!allorders){
+        res.status(500).json({success:false})
+    }
+    res.send(allorders);
+})
+
 router.post('/create',
 asyncHandler(async (req:any, res:any) => {
     const requestOrder = req.body;

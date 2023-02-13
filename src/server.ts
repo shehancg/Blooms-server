@@ -7,6 +7,10 @@ import cors from 'cors';
 import { Server as WebSocketServer } from 'ws';
 import  errorHandler from './shared/errorHandler';
 import * as dotenv from 'dotenv'
+
+const WebSocket = require('ws');
+const wssChat = new WebSocket.Server({ port:8000 });
+
 dotenv.config()
 
 // import categoriesRoutes from './routes/categories';
@@ -14,8 +18,9 @@ dotenv.config()
 import usersRoutes from './controllers/users';
 import itemsRoutes, { uploadOptions } from './controllers/items'
 import ordersRoutes from './controllers/orders';
+import path from "path";
 
-const app = express();
+export const app = express();
 const api = process.env.API_URl;
 
 const corsOptions = {
@@ -25,7 +30,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use('/public/uploads', express.static(`${__dirname}/public/uploads`));
+app.use('/public/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 app.get("/", (req, res) => {
     res.send("BADU WADA");
@@ -42,8 +47,6 @@ app.use(`${api}/orders`, ordersRoutes);
 
 app.use(errorHandler);
 
-
-
 const PORT = process.env.PORT || 7000;
 
 app.listen(PORT, () => {
@@ -53,6 +56,28 @@ app.listen(PORT, () => {
 mongoose.set("strictQuery", false);
 mongoose.connect('mongodb+srv://Admin1:admin123@bloomcluster.rrjichs.mongodb.net/BloomDB').then(() => {
     console.log('DATABASE UP');
-    
+
 });
+
+let chatClients: any[]=[];
+
+wssChat.on('connection', (ws:any, req:any) => {
+
+    console.log('New connection established - chat');
+    
+  
+    chatClients.push(ws);
+  
+    ws.on('message', (data: any) => {
+      chatClients.forEach((client) => {
+        if (client !== ws && client.readyState === WebSocket.OPEN ) {
+          client.send(data);
+        }
+      });
+    });
+  
+    ws.on('close', () => {
+      chatClients = chatClients.filter((client) => client !== ws);
+    });
+  });
 
